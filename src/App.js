@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
 
-function App() {
+function App (props) {
+  const { step, count, dispatch } = props;
+  const decrement = () => {
+    const action = { type: 'DECREMENT' };
+    dispatch(action);
+  };
+  const increment = () => {
+    const action = { type: 'INCREMENT' };
+    dispatch(action);
+  };
+  const onChange = event => {
+    const action = { type: 'SET_STEP', newStep: Number(event.target.value) };
+    dispatch(action);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Current counter value: {count} </h1>
+      <input type='number' value={step} onChange={onChange} />
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={increment}>Increment</button>
     </div>
   );
 }
+function mapStateToProps (state) {
+  return state;
+}
 
-export default App;
+// const withState = connect(mapStateToProps);
+
+// const componentWithState = withState(App);
+
+// export default componentWithState;
+
+export default connect(mapStateToProps)(App) ;
