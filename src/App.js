@@ -3,19 +3,14 @@ import * as ActionCreators from './actions';
 
 function App (props) {
   const { step, count, dispatch } = props;
-  const decrement = () => {
-    const action = ActionCreators.decrement();
-    dispatch(action);
-  };
-  const increment = () => {
-    const action = ActionCreators.increment();
-    dispatch(action);
-  };
-  const onChange = event => {
-    const value = Number(event.target.value);
-    const action = ActionCreators.setStep(value);
-    dispatch(action);
-  };
+
+  const decrement = () => dispatch(ActionCreators.decrement());
+
+  const increment = () => dispatch(ActionCreators.increment());
+
+  const onChange = ({ target: { value } }) =>
+    dispatch(ActionCreators.setStep(Number(value)));
+
   return (
     <div>
       <h1>Current counter value: {count} </h1>
@@ -28,11 +23,5 @@ function App (props) {
 function mapStateToProps (state) {
   return state;
 }
-
-// const withState = connect(mapStateToProps);
-
-// const componentWithState = withState(App);
-
-// export default componentWithState;
 
 export default connect(mapStateToProps)(App);
